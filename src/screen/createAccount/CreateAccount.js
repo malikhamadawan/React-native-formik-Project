@@ -246,7 +246,7 @@ const style = StyleSheet.create({
   passwordMainView: {
     height: (height / 100) * 15,
     width: width,
-    // backgroundColor: 'orange',
+    backgroundColor: 'orange',
     alignItems: 'center',
     justifyContent: 'center',
   },
