@@ -1,27 +1,18 @@
 import React, {useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  Image,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, Dimensions, Text} from 'react-native';
 import {Formik} from 'formik';
 import Theme from '../../../Theme/Theme';
 import {AppInput} from '../../components/AppInput';
 import {moderateScale} from '../../../Theme/Dimensions';
 import {AppBtn} from '../../components/AppBtn';
 import {
-  loginInitialValues,
-  loginValidationSchema,
+  createInitialValues,
+  createValidationSchema,
 } from '../../components/validation';
-import {BooleanSchema} from 'yup';
-import {Button} from '../../components/Button';
 import {NavHeader} from '../../components/NavHeader';
 const {height, width} = Dimensions.get('window');
 
-export const CreatePassword = props => {
+export const CreatePassword = ({navigation}) => {
   const [show, setShow] = useState(true);
 
   const showHidePassword = () => {
@@ -32,9 +23,16 @@ export const CreatePassword = props => {
   const showPassword = () => {
     setChecked(!checked);
   };
+  const onPressConfirm = e => {
+    navigation.navigate('HomeScreen');
+    console.log('hhhh--', onPressConfirm);
+  };
   return (
     <View style={style.header}>
       <NavHeader
+        leftPressed={() => {
+          navigation.navigate('CreateAccount');
+        }}
         leftIc={'arrow-back'}
         source={require('../../assets/AppLogo.png')}
       />
@@ -54,19 +52,18 @@ export const CreatePassword = props => {
         </Text>
       </View>
       <Formik
-        initialValues={loginInitialValues}
-        validationSchema={loginValidationSchema}
-        onSubmit={values => console.log(values)}>
+        initialValues={createInitialValues}
+        validationSchema={createValidationSchema}
+        onSubmit={values => {
+          onPressConfirm(values);
+        }}>
         {({
           handleChange,
           handleBlur,
           handleSubmit,
           values,
           errors,
-          isValid,
           touched,
-          onBlur,
-          onFocus,
         }) => (
           <>
             {/* Email */}
@@ -82,7 +79,9 @@ export const CreatePassword = props => {
                   touched={touched.password}
                   secureTextEntry={show}
                   leftIc={show ? 'eye-off-sharp' : 'ios-eye-sharp'}
-                  rightIc={'ios-lock-closed'}
+                  rightIc={
+                    values.password.length > 0 ? null : 'ios-lock-closed'
+                  }
                   onPress={showHidePassword}
                   color={'black'}
                 />
@@ -99,9 +98,11 @@ export const CreatePassword = props => {
                   value={values.confirmPassword}
                   errorMessage={errors.confirmPassword}
                   touched={touched.confirmPassword}
-                  secureTextEntry={show}
+                  secureTextEntry={checked}
                   leftIc={checked ? 'eye-off-sharp' : 'ios-eye-sharp'}
-                  rightIc={'ios-lock-closed'}
+                  rightIc={
+                    values.confirmPassword.length > 0 ? null : 'ios-lock-closed'
+                  }
                   onPress={showPassword}
                   color={'black'}
                 />

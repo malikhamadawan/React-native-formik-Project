@@ -4,7 +4,7 @@ import Theme from '../../../Theme/Theme';
 import {moderateScale} from '../../../Theme/Dimensions';
 import {NavHeader} from '../../components/NavHeader';
 import {AppBtn} from '../../components/AppBtn';
-import { AppInput } from '../../components/AppInput';
+import {AppInput} from '../../components/AppInput';
 const {height, width} = Dimensions.get('window');
 export const ResetPassword = ({navigation}) => {
   return (
@@ -17,7 +17,9 @@ export const ResetPassword = ({navigation}) => {
         // justifyContent: 'center',
       }}>
       <NavHeader
-      leftPressed={()=>{navigation.navigate('LogIn') }}
+        leftPressed={() => {
+          navigation.navigate('LogIn');
+        }}
         leftIc={'arrow-back'}
         source={require('../../assets/AppLogo.png')}
       />
@@ -49,7 +51,7 @@ export const ResetPassword = ({navigation}) => {
         style={{
           width: width,
           height: 150,
-        //   backgroundColor: 'red',
+          //   backgroundColor: 'red',
           alignItems: 'center',
           justifyContent: 'center',
         }}>
@@ -64,7 +66,9 @@ export const ResetPassword = ({navigation}) => {
         </Text>
         <AppInput placeholder={'Enter your email'} />
       </View>
-      <AppBtn txt={'Submit'} />
+      <AppBtn txt={'Send Verification Code'} onPress={()=>{
+        navigation.navigate('OtpScreen')
+      }} />
     </View>
   );
 };

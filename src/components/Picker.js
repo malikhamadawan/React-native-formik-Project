@@ -26,30 +26,27 @@ export const Picker = ({
   value,
   onClose,
 }) => {
-  const [callingCode, setCallingCode] = useState('+92');
-  const [countryCode, setCountryCode] = useState('Pk');
-  const [country, setCountry] = useState(null);
-  const onSelect = country => {
-    setCountryCode(country.cca2);
-    setCountry(country);
-  };
-
+  const [callingCode, setCallingCode] = useState('+1');
+  const [countryCode, setCountryCode] = useState('');
+  console.log('jddd---', callingCode,countryCode);
   return (
     <View style={style.mainView}>
       <View onPress={onPress} style={style.icView}>
-        <Ionicons name={rightIc} size={20} color={'#7681A5B3'} />
+        <Ionicons name={rightIc} size={20} color={'#7681A5B3'}/>
       </View>
       <CountryPicker
-        style={{height: 40, width: 60}}
-        countryCode={'PK'}
-        translation={'common'}
+        countryCode={countryCode? callingCode: null}
+        translation={'ita'}
         withCallingCodeButton
         withAlphaFilter
         withFilter
         withEmoji={true}
         withFlagButton={false}
         // visible={false}
-        onSelect
+        onSelect={country => {
+          setCallingCode(country.cca2);
+          setCountryCode(country.callingCode);
+        }}
       />
       <TouchableOpacity onPress={onOpen} style={style.icView}>
         <MaterialIcons name={leftIc} size={25} color={'#7681A5B3'} />
@@ -72,15 +69,10 @@ const style = StyleSheet.create({
   },
   icView: {
     height: '100%',
-    width: '40%',
+    width: '22%',
     // backgroundColor: '#aaf',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  container: {
-    height: '100%',
-    width: '80%',
-    backgroundColor: 'green,',
   },
 });
 export default style;

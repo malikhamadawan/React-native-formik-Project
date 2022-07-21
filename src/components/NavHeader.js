@@ -5,13 +5,14 @@ import {
   TouchableOpacity,
   Dimensions,
   StyleSheet,
-  Image
+  Image,
 } from 'react-native';
 import Theme from '../../Theme/Theme';
 const {height, width} = Dimensions.get('window');
 
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {moderateScale} from '../../Theme/Dimensions';
 
 export const NavHeader = ({
   leftIc,
@@ -21,21 +22,34 @@ export const NavHeader = ({
   rightPressed,
   title,
   source,
-  style
+  style,
 }) => {
   return (
     <View style={styles.mainView}>
       <TouchableOpacity onPress={leftPressed} style={styles.LefttouchableView}>
-        <Ionicons name={leftIc} size={30} color={'#7681A5'} />
+        <Ionicons name={leftIc} size={30} color={'black'} />
       </TouchableOpacity>
       <View style={styles.view}>
-        {/* <Text style={style.text}>{title}</Text> */}
-        <Image source={source} style={{
-          height: 50,
-          width: 50,
-        }} />
+        <Text
+          style={{
+            color: '#000',
+            fontSize: Theme.fontSizes.big,
+            fontWeight: 'bold',
+            marginTop: moderateScale(10),
+          }}>
+          {title}
+        </Text>
+        <Image
+          source={source}
+          style={{
+            height: 50,
+            width: 50,
+          }}
+        />
       </View>
-      <TouchableOpacity onPress={rightPressed} style={styles.RightTouchableView}>
+      <TouchableOpacity
+        onPress={rightPressed}
+        style={styles.RightTouchableView}>
         <Entypo name={rightIc} size={27} color={'#7681A5B3'} />
       </TouchableOpacity>
     </View>
@@ -45,15 +59,15 @@ export const NavHeader = ({
 const styles = StyleSheet.create({
   mainView: {
     height: 55,
-    backgroundColor: '#fff',
+    // backgroundColor: 'red',
     flexDirection: 'row',
   },
   view: {
-    height: '100%',
-    width: (width / 100) * 70,
+    height: 55,
+    width: '70%',
     // backgroundColor: '#a3a',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
   LefttouchableView: {
     height: '100%',

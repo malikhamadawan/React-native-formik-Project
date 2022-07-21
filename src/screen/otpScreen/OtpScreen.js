@@ -5,9 +5,11 @@ import {moderateScale} from '../../../Theme/Dimensions';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {NavHeader} from '../../components/NavHeader';
 import {Otp} from '../../components/Otp';
-import { AppBtn } from '../../components/AppBtn';
+import {AppBtn} from '../../components/AppBtn';
+import style from '../../components/AppInput';
 const {height, width} = Dimensions.get('window');
 export const OtpScreen = ({navigation}) => {
+  const [code, setCode] = useState(false);
   return (
     <View
       style={{
@@ -20,8 +22,8 @@ export const OtpScreen = ({navigation}) => {
       <NavHeader
         leftIc={'arrow-back'}
         source={require('../../assets/AppLogo.png')}
-        leftPressed={()=>{
-          navigation.navigate('LogIn')
+        leftPressed={() => {
+          navigation.navigate('LogIn');
         }}
       />
       <View style={styles.imgView}>
@@ -41,59 +43,48 @@ export const OtpScreen = ({navigation}) => {
           email address
         </Text>
       </View>
-      <View
-        style={{
-          width: width,
-          height: 200,
-          alignItems: 'center',
-          justifyContent: 'center',
-          // backgroundColor: 'red',
-        }}>
+      <View style={styles.OtpMainView}>
         <OTPInputView
-          style={{width: '85%', height: 200}}
-          placeholderTextColor={'red'}
-          keyboardType={'default'}
+          style={{width: '95%', height: 200}}
           pinCount={4}
-          // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
-          // onCodeChanged = {code => { this.setState({code})}}
-          autoFocusOnLoad={false}
+          autoFocusOnLoad
           codeInputFieldStyle={styles.underlineStyleBase}
           codeInputHighlightStyle={styles.underlineStyleHighLighted}
-          onCodeFilled={code => {
-            console.log(`Code is ${code}, you are good to go!`);
-          }}
         />
       </View>
-      <AppBtn txt={'Submit'} />
+      <AppBtn
+        txt={'Submit'}
+        onPress={() => {
+          navigation.navigate('CreatePassword');
+        }}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  borderStyleBase: {
-    width: 30,
-    height: 45,
-  },
-
-  borderStyleHighLighted: {
-    borderColor: 'blue',
-  },
-
   underlineStyleBase: {
-    width: 40,
-    height: 50,
-    borderWidth: 4,
-    // borderWidth: 1,
+    width: 70,
+    height: 70,
+    borderWidth: 2,
+    borderRadius: 5,
+    color: 'black',
+  },
+  OtpMainView: {
+    width: width,
+    height: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: 'red',
   },
 
   underlineStyleHighLighted: {
-    borderColor: '#03DAC6',
+    borderColor: '#114D96',
   },
   imgView: {
     height: (height / 100) * 15,
     // backgroundColor: 'blue',
     alignItems: 'center',
-    // justifyContent: 'center',
   },
   imgStyle: {
     height: 50,

@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-export const AppBtn = ({txt, onPress, disabled,leftPress}) => {
+export const AppBtn = ({txt, onPress, disabled, leftPress,marginTop}) => {
   return (
-    <View style={[style.mainView]}>
+    <View style={[style.mainView,{marginTop: marginTop}]}>
       <TouchableOpacity
         onPress={onPress}
         style={style.touchableView}

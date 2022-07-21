@@ -23,16 +23,17 @@ export const AppInput = ({
   rightIc,
   leftIc,
   placeholderTextColor,
+  marginRight,
 }) => {
   const [isActive, setActive] = useState(false);
   return (
     <>
       <View
-        style={[style.mainView, {borderColor: isActive ? 'blue' : 'white'}]}>
+        style={[style.mainView, {borderColor: isActive ? '#114D96' : 'white'}]}>
         <View onPress={onPress} style={style.icView}>
           <Ionicons name={rightIc} size={20} color={'#7681A5B3'} />
         </View>
-        <View style={style.container}>
+        <View style={[style.container, {marginRight: marginRight}]}>
           <TextInput
             placeholder={placeholder}
             placeholderTextColor={placeholderTextColor}
@@ -42,6 +43,8 @@ export const AppInput = ({
             value={value}
             onFocus={() => setActive(true)}
             onBlur={() => setActive(false)}
+            style={{
+            }}
           />
         </View>
         <TouchableOpacity onPress={onPress} style={style.icView}>
@@ -70,15 +73,15 @@ const style = StyleSheet.create({
   },
   icView: {
     height: '100%',
-    width: '8%',
+    width: '13%',
     // backgroundColor: '#aaf',
     alignItems: 'center',
     justifyContent: 'center',
   },
   container: {
     height: '100%',
-    width: '80%',
-    backgroundColor: 'blue,',
+    width: '75%',
+    // backgroundColor: 'blue,',
   },
   errorText: {
     fontSize: Theme.fontSizes.small,

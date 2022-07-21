@@ -16,8 +16,8 @@ import {AppInput} from '../../components/AppInput';
 import {moderateScale} from '../../../Theme/Dimensions';
 import {AppBtn} from '../../components/AppBtn';
 import {
-  loginInitialValues,
-  loginValidationSchema,
+  confrimInitialValues,
+  confrimValidationSchema,
 } from '../../components/validation';
 import {Picker} from '../../components/Picker';
 const {height, width} = Dimensions.get('window');
@@ -32,6 +32,9 @@ export const CreateAccount = ({navigation}) => {
 
   const showPassword = () => {
     setChecked(!checked);
+  };
+  const onPressCreate = e => {
+    navigation.navigate('HomeScreen');
   };
   return (
     <View style={style.header}>
@@ -54,9 +57,11 @@ export const CreateAccount = ({navigation}) => {
         </View>
 
         <Formik
-          initialValues={loginInitialValues}
-          validationSchema={loginValidationSchema}
-          onSubmit={values => console.log(values)}>
+          initialValues={confrimInitialValues}
+          validationSchema={confrimValidationSchema}
+          onSubmit={values => {
+            onPressCreate(values);
+          }}>
           {({
             handleChange,
             handleBlur,
@@ -76,9 +81,13 @@ export const CreateAccount = ({navigation}) => {
                   <Text style={style.nameTextStyle}>Name</Text>
                   <AppInput
                     placeholder={'You Name'}
+                    onChangeText={handleChange('name')}
+                    value={values.name}
+                    errorMessage={errors.name}
+                    touched={touched.name}
                     placeholderTextColor={'gray'}
                     keyboardType="email-address"
-                    rightIc={'ios-person'}
+                    rightIc={values.name.length > 0 ? null : 'ios-person'}
                     color={'black'}
                   />
                 </View>
@@ -92,10 +101,7 @@ export const CreateAccount = ({navigation}) => {
                     value={values.email}
                     errorMessage={errors.email}
                     touched={touched.email}
-                    secureTextEntry={show}
-                    leftIc={show ? 'eye-off-sharp' : 'ios-eye-sharp'}
-                    rightIc={'ios-lock-closed'}
-                    onPress={showHidePassword}
+                    rightIc={values.email.length > 0 ? null : 'mail'}
                     color={'black'}
                   />
                 </View>
@@ -140,7 +146,9 @@ export const CreateAccount = ({navigation}) => {
                     touched={touched.password}
                     secureTextEntry={show}
                     leftIc={show ? 'eye-off-sharp' : 'ios-eye-sharp'}
-                    rightIc={'ios-lock-closed'}
+                    rightIc={
+                      values.password.length > 0 ? null : 'ios-lock-closed'
+                    }
                     onPress={showHidePassword}
                     color={'black'}
                   />
@@ -157,9 +165,13 @@ export const CreateAccount = ({navigation}) => {
                     value={values.confirmPassword}
                     errorMessage={errors.confirmPassword}
                     touched={touched.confirmPassword}
-                    secureTextEntry={show}
+                    secureTextEntry={checked}
                     leftIc={checked ? 'eye-off-sharp' : 'ios-eye-sharp'}
-                    rightIc={'ios-lock-closed'}
+                    rightIc={
+                      values.confirmPassword.length > 0
+                        ? null
+                        : 'ios-lock-closed'
+                    }
                     onPress={showPassword}
                     color={'black'}
                   />
@@ -215,6 +227,7 @@ const style = StyleSheet.create({
     width: width,
     // backgroundColor: '#faf',
     alignItems: 'center',
+    marginTop: moderateScale(7),
     // justifyContent: 'center',
   },
   emailView: {
@@ -246,7 +259,7 @@ const style = StyleSheet.create({
   passwordMainView: {
     height: (height / 100) * 15,
     width: width,
-    backgroundColor: 'orange',
+    // backgroundColor: 'orange',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -309,7 +322,7 @@ const style = StyleSheet.create({
     color: '#114D96',
   },
   AppBtnStyle: {
-    height: (height / 100) * 7,
+    height: (height / 100) * 10,
     width: width,
     // backgroundColor: 'orange',
     justifyContent: 'flex-end',

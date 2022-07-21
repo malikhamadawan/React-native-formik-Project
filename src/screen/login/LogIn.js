@@ -27,7 +27,10 @@ export const LogIn = ({navigation}) => {
   const showHidePassword = () => {
     setShow(!show);
   };
-  const [focused, setFocused] = useState(false);
+
+  const onPressLogin = e => {
+    navigation.replace('HomeScreen');
+  };
   return (
     <View style={style.header}>
       <ScrollView>
@@ -47,7 +50,9 @@ export const LogIn = ({navigation}) => {
         <Formik
           initialValues={loginInitialValues}
           validationSchema={loginValidationSchema}
-          onSubmit={values => console.log(values)}>
+          onSubmit={values => {
+            onPressLogin(values);
+          }}>
           {({
             handleChange,
             handleBlur,
@@ -72,7 +77,7 @@ export const LogIn = ({navigation}) => {
                     keyboardType="email-address"
                     errorMessage={errors.email}
                     touched={touched.email}
-                    rightIc={'mail'}
+                    rightIc={values.email.length > 0 ? null : 'mail'}
                     color={'black'}
                   />
                 </View>
@@ -88,7 +93,9 @@ export const LogIn = ({navigation}) => {
                     touched={touched.password}
                     secureTextEntry={show}
                     leftIc={show ? 'eye-off-sharp' : 'ios-eye-sharp'}
-                    rightIc={'ios-lock-closed'}
+                    rightIc={
+                      values.password.length > 0 ? null : 'ios-lock-closed'
+                    }
                     onFocus={onFocus}
                     onBlur={onBlur}
                     onPress={showHidePassword}
@@ -107,9 +114,9 @@ export const LogIn = ({navigation}) => {
               {/* AppBtn */}
               <View style={style.AppBtnStyle}>
                 <AppBtn
-                leftPress={()=>{
-                  navigation.navigate('OtpScreen')
-                }}
+                  leftPress={() => {
+                    navigation.navigate('OtpScreen');
+                  }}
                   txt={'Login'}
                   onPress={handleSubmit}
                 />
