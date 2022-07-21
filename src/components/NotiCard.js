@@ -41,7 +41,7 @@ const style = StyleSheet.create({
   },
   TextViewStyle: {
     height: (height / 100) * 10,
-    // backgroundColor: 'green',
+    backgroundColor: 'green',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
